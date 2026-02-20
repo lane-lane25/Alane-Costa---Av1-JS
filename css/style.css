@@ -1,0 +1,47 @@
+/* ...existing code... */
+/* Variáveis e cores base */
+:root {
+    --accent: #af4157;
+    --accent-opaque: rgba(175,65,87,0.5); /* equivalente com opacidade */
+    --bg: var(--accent);
+    --text: #ffffff;
+    --header-start: #b04a5e;
+    --header-end: #f8d3d7;
+}
+
+/* uso direto */
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+}
+
+/* com opacidade */
+.overlay {
+    background: var(--accent-opaque);
+    /* se precisar cobrir a tela:
+       position: absolute;
+       inset: 0;
+    */
+}
+
+/* com HSL (tom mais claro para garantir contraste) */
+h1 {
+    color: hsl(349, 66%, 90%);
+}
+
+/* variável CSS (tema) */
+.button,
+button {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+/* gradiente */
+header {
+    background: linear-gradient(90deg, var(--header-start) 0%, var(--header-end) 100%);
+}
+/* ...existing code... */
