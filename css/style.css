@@ -64,7 +64,7 @@ button {
     cursor: pointer; /* Mãozinha */
 }
 
-.flor {
+.flor { /* Estilo para a flor que cai */
   position: fixed;
   top: -20px;
   font-size: 24px;
@@ -72,7 +72,7 @@ button {
   pointer-events: none;
 }
 
-@keyframes cair {
+@keyframes cair { /* Animação para a flor cair */
   to {
     transform: translateY(110vh);
   }
