@@ -2,20 +2,48 @@
 
 :root {
     --accent: #f0a6b5;
-    --accent-opaque: rgba(175,65,87,0.5); 
+    --accent-opaque: rgba(175, 65, 87, 0.502); 
     --bg: var(--accent);
-    --text: #ffffff;
-    --header-start: #d3bdc2;
-    --header-end: #f8d3d7;
+    --text: #8d3754;
+    --header-start: #7e3042;
+    --header-end: #7a2f48;
 }
 
 
 body {
-    background-color: var(--bg);
-    color: var(--text);
-    margin: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+
+  display: flex; /*transforma o body em um flex container = caixa que organiza os elementos dentro dela*/
+  justify-content: center; /*centraliza horizontal*/
+  align-items: center; /*centraliza vertical*/
+  height: 100vh;
+
 }
 
+/*quadrado no meio da tela bonitinho*/
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 350px;
+  text-align: center;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/*deixar o btão bonitinho*/
+input {
+  padding: 8px;
+  width: 70%;
+  margin-top: 10px;
+}
+
+button {
+  padding: 8px 12px;
+  margin-left: 5px;
+}
 
 .overlay {
     background: var(--accent-opaque);
@@ -23,14 +51,14 @@ body {
 
 
 h1 {
-    color: hsl(349, 66%, 90%);
+    color: rgb(131, 53, 67);
 }
 
 
 .button,
 button {
     background: var(--accent);
-    color: white;
+    color: rgb(48, 16, 17);
     border: none;
     padding: 0.5rem 1rem;
     cursor: pointer;
