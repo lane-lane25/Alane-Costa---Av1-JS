@@ -64,6 +64,11 @@ button {
     cursor: pointer; /* Mãozinha */
 }
 
+.done { /*riscar a mensagem */
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
 .flor { /* Estilo para a flor que cai */
   position: fixed;
   top: -20px;

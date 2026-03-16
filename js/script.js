@@ -11,14 +11,22 @@ let proximoId = 1;
 function validarTexto(texto) {
   const txt = texto.trim();
 
-  if (txt === "") {
+ if (txt === "") { // Verifica se o texto está vazio
     erro.textContent = "A mensagem não pode estar vazia.";
     return false;
   }
 
-  erro.textContent = "";
+  const duplicado = mensagens.some(m => m.texto === txt); // Verifica se já existe uma mensagem com o mesmo texto
+
+  if (duplicado) {
+    erro.textContent = "Essa tarefa já existe.";
+    return false;
+  }
+
+  erro.textContent = ""; // Limpa a mensagem de erro
   return true;
 }
+ 
 
 // Função para editar
 function editar(id) {
@@ -39,14 +47,31 @@ function excluir(id) {
   }
 }
 
+function alternarConcluida(id) { //pra concluir a tarefa
+  const msg = mensagens.find(m => m.id === id); 
+  msg.concluida = !msg.concluida;
+  render();
+}
+
 // Função para renderizar a lista
 function render() {
   lista.innerHTML = "";
 
-  for (const msg of mensagens) {
+ for (const msg of mensagens) {
     const li = document.createElement("li");
-    li.textContent = msg.texto;
+
+    const span = document.createElement("span");
+    span.textContent = msg.texto;
+
+    if (msg.concluida) {
+      span.classList.add("done");
+    }
+
+    span.addEventListener("click", () => alternarConcluida(msg.id)); //marca como feita
+
+    li.appendChild(span);
     
+
     const botaoEditar = document.createElement("button");
     botaoEditar.textContent = "Editar";
     botaoEditar.addEventListener("click", () => editar(msg.id));
@@ -94,10 +119,11 @@ form.addEventListener("submit", (event) => {
     return;
   }
 
-  mensagens.push({
-    id: proximoId,
-    texto: textoDigitado.trim()
-  });
+  mensagens.push({ // pra pdr concluir a tarefa
+  id: proximoId,
+  texto: textoDigitado.trim(),
+  concluida: false
+});
 
   proximoId++;
   render();
