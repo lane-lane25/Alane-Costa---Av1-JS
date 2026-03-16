@@ -45,11 +45,6 @@ button {
   margin-left: 5px;
 }
 
-.overlay {
-    background: var(--accent-opaque);
-}
-
-
 h1 {
     color: rgb(131, 53, 67);
 }
@@ -64,6 +59,7 @@ button {
     cursor: pointer;
 }
 
-header {
-    background: linear-gradient(90deg, var(--header-start) 0%, var(--header-end) 100%);
+.done {
+  text-decoration: line-through;
+  opacity: 0.6;
 }

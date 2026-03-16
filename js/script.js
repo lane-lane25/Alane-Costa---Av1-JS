@@ -39,14 +39,31 @@ function excluir(id) {
   }
 }
 
+function alternarConcluida(id) {
+  const msg = mensagens.find(m => m.id === id);
+  msg.concluida = !msg.concluida;
+  render();
+}
+
 // Função para renderizar a lista
 function render() {
   lista.innerHTML = "";
 
   for (const msg of mensagens) {
     const li = document.createElement("li");
-    li.textContent = msg.texto;
-    
+
+    const span = document.createElement("span");
+    span.textContent = msg.texto;
+
+    if (msg.concluida) {
+      span.classList.add("done");
+    }
+
+    span.addEventListener("click", () => alternarConcluida(msg.id));
+
+    li.appendChild(span);
+
+  
     const botaoEditar = document.createElement("button");
     botaoEditar.textContent = "Editar";
     botaoEditar.addEventListener("click", () => editar(msg.id));
@@ -61,6 +78,7 @@ function render() {
   }
 }
 
+
 // Evento de envio do formulário
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -72,9 +90,11 @@ form.addEventListener("submit", (event) => {
   }
 
   mensagens.push({
-    id: proximoId,
-    texto: textoDigitado.trim()
-  });
+  id: proximoId,
+  texto: textoDigitado.trim(),
+  concluida: false
+});
+
 
   proximoId++;
   render();
