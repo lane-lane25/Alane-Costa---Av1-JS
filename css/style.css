@@ -59,7 +59,7 @@ button {
     cursor: pointer;
 }
 
-.done {
+.done { /*riscar a mensagem */
   text-decoration: line-through;
   opacity: 0.6;
 }
