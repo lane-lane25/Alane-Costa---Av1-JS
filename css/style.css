@@ -1,19 +1,18 @@
-
-
+/* Deixa as variáveis prontas pra usar certinho */
 :root {
-    --accent: #f0a6b5;
-    --accent-opaque: rgba(175, 65, 87, 0.502); 
-    --bg: var(--accent);
-    --text: #8d3754;
-    --header-start: #7e3042;
-    --header-end: #7a2f48;
+    --cor-principal: #f0a6b5;
+    --outra-cor: rgba(175, 65, 87, 0.502); 
+    --bg: var(--cor-principal);
+    --texto: #8d3754;
+
 }
 
 
 body {
-  background-color: var(--bg);
-  color: var(--text);
-  margin: 0;
+  background-color: var(--bg); /* lá no root*/
+  color: var(--texto); /* lá no root*/
+  margin: 50;
+  font-family: 'Quicksand', sans-serif;/*deixa a fonte mais bonita*/
 
   display: flex; /*transforma o body em um flex container = caixa que organiza os elementos dentro dela*/
   justify-content: center; /*centraliza horizontal*/
@@ -22,7 +21,7 @@ body {
 
 }
 
-/*quadrado no meio da tela bonitinho*/
+/*quadrado no meio da tela bonitinho(pega o card lá no index*/
 .card {
   background: white;
   padding: 30px;
@@ -33,22 +32,23 @@ body {
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-/*deixar o btão bonitinho*/
+
 input {
   padding: 8px;
   width: 70%;
   margin-top: 10px;
 }
 
-button {
-  padding: 8px 12px;
-  margin-left: 5px;
+/*deixar o botão menor*/
+#lista button {
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
 }
 
-.overlay {
-    background: var(--accent-opaque);
+#lista button { /*deixar o btão espaçado*/
+  margin-left: 8px;
 }
-
 
 h1 {
     color: rgb(131, 53, 67);
@@ -57,13 +57,24 @@ h1 {
 
 .button,
 button {
-    background: var(--accent);
+    background: var(--cor-principal); /*pega a cor do accent lá no root*/
     color: rgb(48, 16, 17);
     border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
+    padding: 0.5rem 1rem; 
+    cursor: pointer; /* Mãozinha */
 }
 
-header {
-    background: linear-gradient(90deg, var(--header-start) 0%, var(--header-end) 100%);
+.flor {
+  position: fixed;
+  top: -20px;
+  font-size: 24px;
+  animation: cair 5s linear forwards;
+  pointer-events: none;
 }
+
+@keyframes cair {
+  to {
+    transform: translateY(110vh);
+  }
+}
+

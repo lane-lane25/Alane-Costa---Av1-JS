@@ -61,11 +61,34 @@ function render() {
   }
 }
 
+//Função para fazer as flores caírem 
+function cairFlores() {
+  for (let i = 0; i < 20; i++) {
+
+    const flor = document.createElement("div");
+    flor.textContent = "🌸";
+    flor.classList.add("flor");
+
+    flor.style.left = Math.random() * window.innerWidth + "px";
+    flor.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+    document.body.appendChild(flor);
+
+    setTimeout(() => {
+      flor.remove();
+    }, 5000);
+  }
+}
+
 // Evento de envio do formulário
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const textoDigitado = input.value;
+
+  if (textoDigitado.toLowerCase().includes("jane austen")) {
+  cairFlores(); //jane austen é a melhor escritora de todos os tempos, então merece flores caindo na tela
+}
 
   if (!validarTexto(textoDigitado)) {
     return;
