@@ -11,43 +11,51 @@ let proximoId = 1;
 function validarTexto(texto) {
   const txt = texto.trim();
 
-  if (txt === "") {
+  if (txt === "") { // Verifica se o texto está vazio
     erro.textContent = "A mensagem não pode estar vazia.";
     return false;
   }
 
-  erro.textContent = "";
+  const duplicado = mensagens.some(m => m.texto === txt); // Verifica se já existe uma mensagem com o mesmo texto
+
+  if (duplicado) {
+    erro.textContent = "Essa tarefa já existe.";
+    return false;
+  }
+
+  erro.textContent = ""; // Limpa a mensagem de erro
   return true;
 }
 
+
 // Função para editar
 function editar(id) {
-  const msg = mensagens.find(m => m.id === id);
-  const novoTexto = prompt("Edite a mensagem:", msg.texto);
+  const msg = mensagens.find(m => m.id === id); // Encontra a mensagem pelo ID
+  const novoTexto = prompt("Edite a mensagem:", msg.texto); // Pede o novo texto
   
-  if (novoTexto !== null && validarTexto(novoTexto)) {
+  if (novoTexto !== null && validarTexto(novoTexto)) { 
     msg.texto = novoTexto.trim();
-    render();
+    render(); 
   }
 }
 
 // Função para excluir
 function excluir(id) {
   if (confirm("Tem certeza que deseja excluir esta mensagem?")) {
-    mensagens = mensagens.filter(m => m.id !== id);
+    mensagens = mensagens.filter(m => m.id !== id); // Remove a mensagem do array
     render();
   }
 }
 
-function alternarConcluida(id) {
-  const msg = mensagens.find(m => m.id === id);
+function alternarConcluida(id) { //pra concluir a tarefa
+  const msg = mensagens.find(m => m.id === id); 
   msg.concluida = !msg.concluida;
   render();
 }
 
 // Função para renderizar a lista
 function render() {
-  lista.innerHTML = "";
+  lista.innerHTML = ""; // Limpa a lista antes de renderizar novamente
 
   for (const msg of mensagens) {
     const li = document.createElement("li");
@@ -59,7 +67,7 @@ function render() {
       span.classList.add("done");
     }
 
-    span.addEventListener("click", () => alternarConcluida(msg.id));
+    span.addEventListener("click", () => alternarConcluida(msg.id)); //marca como feita
 
     li.appendChild(span);
 
@@ -80,24 +88,24 @@ function render() {
 
 
 // Evento de envio do formulário
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", (event) => { 
   event.preventDefault();
 
-  const textoDigitado = input.value;
+  const textoDigitado = input.value; 
 
   if (!validarTexto(textoDigitado)) {
     return;
   }
 
-  mensagens.push({
+  mensagens.push({ // pra pdr concluir a tarefa
   id: proximoId,
   texto: textoDigitado.trim(),
   concluida: false
 });
 
 
-  proximoId++;
-  render();
+  proximoId++; 
+  render(); 
 
   input.value = "";
 });
