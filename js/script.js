@@ -27,7 +27,6 @@ function validarTexto(texto) {
   return true;
 }
 
-
 // Função para editar
 function editar(id) {
   const msg = mensagens.find(m => m.id === id); // Encontra a mensagem pelo ID
@@ -57,7 +56,7 @@ function alternarConcluida(id) { //pra concluir a tarefa
 function render() {
   lista.innerHTML = ""; // Limpa a lista antes de renderizar novamente
 
-  for (const msg of mensagens) {
+ for (const msg of mensagens) {
     const li = document.createElement("li");
 
     const span = document.createElement("span");
@@ -70,8 +69,7 @@ function render() {
     span.addEventListener("click", () => alternarConcluida(msg.id)); //marca como feita
 
     li.appendChild(span);
-
-  
+    
     const botaoEditar = document.createElement("button");
     botaoEditar.textContent = "Editar";
     botaoEditar.addEventListener("click", () => editar(msg.id));
@@ -86,12 +84,34 @@ function render() {
   }
 }
 
+//Função para fazer as flores caírem 
+function cairFlores() {
+  for (let i = 0; i < 20; i++) {
+
+    const flor = document.createElement("div");
+    flor.textContent = "🌸";
+    flor.classList.add("flor");
+
+    flor.style.left = Math.random() * window.innerWidth + "px";
+    flor.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+    document.body.appendChild(flor);
+
+    setTimeout(() => {
+      flor.remove();
+    }, 5000);
+  }
+}
 
 // Evento de envio do formulário
 form.addEventListener("submit", (event) => { 
   event.preventDefault();
 
   const textoDigitado = input.value; 
+
+  if (textoDigitado.toLowerCase().includes("jane austen")) {
+  cairFlores(); //jane austen é a melhor escritora de todos os tempos, então merece flores caindo na tela
+}
 
   if (!validarTexto(textoDigitado)) {
     return;

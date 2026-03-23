@@ -67,4 +67,21 @@ button {
 .done { /*riscar a mensagem */
   text-decoration: line-through;
   opacity: 0.6;
+
 }
+
+
+.flor { /* Estilo para a flor que cai */
+  position: fixed;
+  top: -20px;
+  font-size: 24px;
+  animation: cair 5s linear forwards;
+  pointer-events: none;
+}
+
+@keyframes cair { /* Animação para a flor cair */
+  to {
+    transform: translateY(110vh);
+  }
+}
+
