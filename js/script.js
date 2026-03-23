@@ -30,12 +30,29 @@ function validarTexto(texto) {
 // Função para editar
 function editar(id) {
   const msg = mensagens.find(m => m.id === id); // Encontra a mensagem pelo ID
-  const novoTexto = prompt("Edite a mensagem:", msg.texto); // Pede o novo texto
+  msg.emEdicao = true;
+  render();
+}
+
+// Função para salvar edição
+function salvarEdicao(id) {
+  const msg = mensagens.find(m => m.id === id);
+  const novoTexto = msg.textoEmEdicao || msg.texto;
   
-  if (novoTexto !== null && validarTexto(novoTexto)) { 
+  if (validarTexto(novoTexto)) {
     msg.texto = novoTexto.trim();
-    render(); 
+    msg.emEdicao = false;
+    msg.textoEmEdicao = "";
+    render();
   }
+}
+
+// Função para cancelar edição
+function cancelarEdicao(id) {
+  const msg = mensagens.find(m => m.id === id);
+  msg.emEdicao = false;
+  msg.textoEmEdicao = "";
+  render();
 }
 
 // Função para excluir
@@ -59,27 +76,52 @@ function render() {
  for (const msg of mensagens) {
     const li = document.createElement("li");
 
-    const span = document.createElement("span");
-    span.textContent = msg.texto;
+    if (msg.emEdicao) {
+      // Modo edição
+      const input = document.createElement("input"); //Cria um input de texto
+      input.type = "text";
+      input.value = msg.textoEmEdicao || msg.texto;
+      input.addEventListener("change", (e) => { //Atualiza a mensagem enquanto o usuário digita
+        msg.textoEmEdicao = e.target.value;
+      });
+      
+      li.appendChild(input);
+      
+      const botaoSalvar = document.createElement("button");
+      botaoSalvar.textContent = "Salvar";
+      botaoSalvar.addEventListener("click", () => salvarEdicao(msg.id));
+      
+      const botaoCancelar = document.createElement("button");
+      botaoCancelar.textContent = "Cancelar";
+      botaoCancelar.addEventListener("click", () => cancelarEdicao(msg.id));
+      
+      li.appendChild(botaoSalvar);
+      li.appendChild(botaoCancelar);
+    } else {
+      // Modo visualização
+      const span = document.createElement("span");
+      span.textContent = msg.texto;
 
-    if (msg.concluida) {
-      span.classList.add("done");
+      if (msg.concluida) {
+        span.classList.add("done");
+      }
+
+      span.addEventListener("click", () => alternarConcluida(msg.id)); //marca como feita
+
+      li.appendChild(span);
+      
+      const botaoEditar = document.createElement("button");
+      botaoEditar.textContent = "Editar";
+      botaoEditar.addEventListener("click", () => editar(msg.id));
+      
+      const botaoExcluir = document.createElement("button");
+      botaoExcluir.textContent = "Excluir";
+      botaoExcluir.addEventListener("click", () => excluir(msg.id));
+      
+      li.appendChild(botaoEditar);
+      li.appendChild(botaoExcluir);
     }
-
-    span.addEventListener("click", () => alternarConcluida(msg.id)); //marca como feita
-
-    li.appendChild(span);
     
-    const botaoEditar = document.createElement("button");
-    botaoEditar.textContent = "Editar";
-    botaoEditar.addEventListener("click", () => editar(msg.id));
-    
-    const botaoExcluir = document.createElement("button");
-    botaoExcluir.textContent = "Excluir";
-    botaoExcluir.addEventListener("click", () => excluir(msg.id));
-    
-    li.appendChild(botaoEditar);
-    li.appendChild(botaoExcluir);
     lista.appendChild(li);
   }
 }
